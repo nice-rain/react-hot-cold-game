@@ -9,6 +9,7 @@ import GameGuesses from './gameGuesses.js';
 
 import './gameContainer.css';
 
+
 export default class GameContainer extends Component {
     constructor(props) {
         super(props);
@@ -19,9 +20,8 @@ export default class GameContainer extends Component {
             guesses: []
         };
 
-        this.answer = Math.floor(Math.random() * (+100 - +0)) + +0;
+        this.answer = this.props.newNumber;
     }
-
 
     updateCounter()
     {
@@ -74,16 +74,17 @@ export default class GameContainer extends Component {
     {
         //Check to see if we've already guessed the number
         if(this.state.guesses.includes(Number(guessedNumber)))
-            {
-                alert(`You've already guessed ${guessedNumber}`);
-            }
-        else{
-            if(Number(guessedNumber) === this.answer)
+        {
+            alert(`You've already guessed ${guessedNumber}`);
+        }
+        else
+        {
+            if(Number(guessedNumber) ===this.answer)
             {
              this.updateGuessLabel(guessedNumber, true);
              this.updateCounter();
              //update this last because we are checking array previously
-             this.updateGuessLabel(guessedNumber);
+             this.updateGuesses(guessedNumber);
             }
             else{
                 this.updateGuessLabel(guessedNumber, false);
@@ -99,11 +100,12 @@ export default class GameContainer extends Component {
         return (
             <section className="game-container">
                 <GameTop label={this.state.guessLabel}/>
-                {this.answer}
+                {this.state.answer}
                 <GameInput 
                     guessCount={this.state.guessCount} 
                     submitGuess={(guess)=> this.checkAnswer(guess)}/>
-                <GameGuesses />
+
+                <GameGuesses guesses={this.state.guesses}/>
                 
             </section>
         );

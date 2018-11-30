@@ -8,23 +8,31 @@ export default class HotColdGame extends Component {
         super(props);
 
         this.state = {
-            
+            newNumber:Math.floor(Math.random() * (+100 - +0)) + +0
         };
     }
 
+    resetGame(e)
+    {
+        const randomNumber = Math.floor(Math.random() * (+100 - +0)) + +0;
+        console.log(randomNumber);
+        e.preventDefault();
+        this.setState({newNumber: randomNumber});
+    }
+
     render() {
-        
+        console.log('render DOM');
         return (
             <div className="hot-cold-game">
             <nav>
                 <ul>
                     <li>Help?</li>
-                    <li className="new-game-link">New Game</li>
+                    <li className="new-game-link"><a href="#"  onClick={(e)=> this.resetGame(e)}>New Game</a></li>
                 </ul>
             </nav>
                 <h1>HOT or COLD</h1>
             
-            <GameContainer />
+            <GameContainer newNumber={this.state.newNumber}/>
             </div>
         );
     }

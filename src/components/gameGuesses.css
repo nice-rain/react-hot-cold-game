@@ -9,3 +9,13 @@
     padding:0;
     list-style: none;
 }
+
+.game-guesses li{
+    display:inline;
+    background-color:rgba(75, 75, 75, 0.74);
+    border:1px solid white;
+    margin-left:5px;
+    margin-right:5px;
+    padding:5px;
+    border-radius:0.1em;
+}
