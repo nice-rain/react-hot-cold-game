@@ -1,9 +1,0 @@
-.game-container{
-    height:400px;
-    width:400px;
-    border:1px solid #222;
-    background-color:rgb(63, 58, 80);
-    border-radius: 0.5em;
-    margin:0 auto;
-    overflow:hidden;
-}
