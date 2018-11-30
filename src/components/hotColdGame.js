@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './hotColdGame.css';
+import GameContainer from './gameContainer';
 
 
 export default class HotColdGame extends Component {
@@ -22,7 +23,8 @@ export default class HotColdGame extends Component {
                 </ul>
             </nav>
                 <h1>HOT or COLD</h1>
-                
+            
+            <GameContainer />
             </div>
         );
     }

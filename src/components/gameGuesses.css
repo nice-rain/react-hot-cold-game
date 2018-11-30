@@ -1,0 +1,11 @@
+.game-guesses
+{
+    background-color:green;
+    height:73px;
+    overflow-x:scroll;
+}
+
+.game-guesses ul{
+    padding:0;
+    list-style: none;
+}
