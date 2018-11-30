@@ -104,7 +104,7 @@ export default class HotColdGame extends Component {
             <nav>
                 <ul>
                     <li>Help?</li>
-                    <li className="new-game-link"><button type="button"  onClick={(e)=> this.resetGame(e)}>New Game</button></li>
+                    <li className="new-game-link"><button type="button" className="link-button" onClick={(e)=> this.resetGame(e)}>New Game</button></li>
                 </ul>
             </nav>
                 <h1>HOT or COLD</h1>
