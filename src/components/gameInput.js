@@ -10,7 +10,7 @@ export default class GameInput extends Component
                 <input type="number" placeholder="Enter Your Guess" ref={input => this.guessInput = input}></input>
                 <button type="button" onClick={() => {this.props.submitGuess(this.guessInput.value);}}>Guess</button>
             </form>
-            <p>Guess #<span className="guess-count">0</span>!</p>              
+            <p>Guess #<span className="guess-count">{this.props.guessCount}</span>!</p>              
         </div>
       );
     }

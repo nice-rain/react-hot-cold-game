@@ -14,22 +14,83 @@ export default class GameContainer extends Component {
         super(props);
 
         this.state = {
+            guessCount: 0,
+            guessLabel: 'Make Your Guess!',
+            guesses: []
         };
 
-        this.answer = Math.floor(Math.random() * (+100 - +0)) + +0
+        this.answer = Math.floor(Math.random() * (+100 - +0)) + +0;
     }
 
 
+    updateCounter()
+    {
+        this.setState({
+            guessCount: this.state.guessCount + 1
+        });
+    }
+
+    //This updates our array of guesses and re-renders the DOM
+    updateGuesses(newGuess)
+    {
+        const guess = Number(newGuess);
+
+        //Update our state with new guess added into the array
+        this.setState({
+            guesses: [...this.state.guesses, guess]
+        });
+    }
+
+    //This updates the label above the input to let the player know if they were successful
+    //or incorrect. If correct is true, we let the user know they were successful. If false,
+    //we calculate whether or not they are hot or cold.
+    updateGuessLabel(number, correct)
+    {
+        let label;
+
+        if(correct)
+        {
+            label = "You Won!";
+        }
+        else{
+            //Determine whether or not we are hot or cold
+             let difference = Math.abs(number - this.answer);
+            if(difference > 10)
+             {
+                label = `${number} is cold.`;
+             }
+             else{
+                label = `${number} is hot.`;
+             }
+        }
+
+        this.setState({
+            guessLabel: label
+        });
+    }
 
     //Checks our answer and handles logic if it is correct or incorrect.
     checkAnswer(guessedNumber)
     {
-        if(Number(guessedNumber) === this.answer)
-        {
-            alert("You guessed the right number");
-        }
+        //Check to see if we've already guessed the number
+        if(this.state.guesses.includes(Number(guessedNumber)))
+            {
+                alert(`You've already guessed ${guessedNumber}`);
+            }
         else{
-            alert("You guessed the wrong number");
+            if(Number(guessedNumber) === this.answer)
+            {
+             this.updateGuessLabel(guessedNumber, true);
+             this.updateCounter();
+             //update this last because we are checking array previously
+             this.updateGuessLabel(guessedNumber);
+            }
+            else{
+                this.updateGuessLabel(guessedNumber, false);
+                this.updateCounter();
+                //Update this last because we check the array earlier.
+                this.updateGuesses(guessedNumber);
+            }
         }
     }
 
@@ -37,10 +98,12 @@ export default class GameContainer extends Component {
         
         return (
             <section className="game-container">
-                <GameTop />
+                <GameTop label={this.state.guessLabel}/>
                 {this.answer}
-                <GameInput submitGuess={(guess)=> this.checkAnswer(guess)}/>
-                <GameGuesses/>
+                <GameInput 
+                    guessCount={this.state.guessCount} 
+                    submitGuess={(guess)=> this.checkAnswer(guess)}/>
+                <GameGuesses />
                 
             </section>
         );
