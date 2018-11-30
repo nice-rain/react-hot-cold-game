@@ -7,7 +7,9 @@ import GameGuesses from './gameGuesses.js';
 const initialState = {
     guessCount: 0,
     guessLabel: 'Make Your Guess!',
-    guesses: []
+    guesses: [],
+    inputNumber:'',
+    gameWon: false
 };
 
 export default class HotColdGame extends Component {
@@ -16,6 +18,11 @@ export default class HotColdGame extends Component {
 
         this.state = initialState;
         this.answer = Math.floor(Math.random() * (+100 - +0)) + +0;
+    }
+
+    resetInput()
+    {
+        this.setState({inputNumber:''});
     }
 
     resetGame(e)
@@ -44,6 +51,16 @@ export default class HotColdGame extends Component {
         });
     }
 
+    updateInput(newNumber)
+    {
+        this.setState({inputNumber: newNumber});
+    }
+
+    updateWin()
+    {
+        this.setState({gameWon:true});
+    }
+
     //This updates the label above the input to let the player know if they were successful
     //or incorrect. If correct is true, we let the user know they were successful. If false,
     //we calculate whether or not they are hot or cold.
@@ -54,6 +71,7 @@ export default class HotColdGame extends Component {
         if(correct)
         {
             label = "You Won!";
+            this.updateWin();
         }
         else{
             //Determine whether or not we are hot or cold
@@ -75,6 +93,9 @@ export default class HotColdGame extends Component {
     //Checks our answer and handles logic if it is correct or incorrect.
     checkAnswer(guessedNumber)
     {
+        //reset our input
+        this.resetInput();
+
         //Check to see if we've already guessed the number
         if(this.state.guesses.includes(Number(guessedNumber)))
         {
@@ -103,7 +124,7 @@ export default class HotColdGame extends Component {
             <div className="hot-cold-game">
             <nav>
                 <ul>
-                    <li>Help?</li>
+                    {/* <li>Help?</li> */}
                     <li className="new-game-link"><button type="button" className="link-button" onClick={(e)=> this.resetGame(e)}>New Game</button></li>
                 </ul>
             </nav>
@@ -111,8 +132,11 @@ export default class HotColdGame extends Component {
             
                 <section className="game-container">
                 <GameTop label={this.state.guessLabel}/>
-                <GameInput 
-                    guessCount={this.state.guessCount} 
+                <GameInput
+                    value={this.state.inputNumber}
+                    gameWon={this.state.gameWon} 
+                    guessCount={this.state.guessCount}
+                    setNumber={num => this.updateInput(num)} 
                     submitGuess={(guess)=> this.checkAnswer(guess)}/>
                 <GameGuesses guesses={this.state.guesses}/>
                 

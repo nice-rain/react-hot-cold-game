@@ -50,3 +50,8 @@
     color:goldenrod;
     font-weight:bold;
 }
+
+.game-input .new-game-prompt
+{
+    font-size:20px;
+}
