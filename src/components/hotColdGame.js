@@ -20,8 +20,8 @@ export default class HotColdGame extends Component {
 
     resetGame(e)
     {
-        const randomNumber = Math.floor(Math.random() * (+100 - +0)) + +0;
-        console.log(randomNumber);
+        this.answer = Math.floor(Math.random() * (+100 - +0)) + +0;
+        console.log(this.answer);
         e.preventDefault();
         this.setState(initialState);
     }
@@ -98,26 +98,22 @@ export default class HotColdGame extends Component {
         }
     }
 
-
     render() {
-        console.log('render DOM');
         return (
             <div className="hot-cold-game">
             <nav>
                 <ul>
                     <li>Help?</li>
-                    <li className="new-game-link"><a href="#"  onClick={(e)=> this.resetGame(e)}>New Game</a></li>
+                    <li className="new-game-link"><button type="button"  onClick={(e)=> this.resetGame(e)}>New Game</button></li>
                 </ul>
             </nav>
                 <h1>HOT or COLD</h1>
             
                 <section className="game-container">
                 <GameTop label={this.state.guessLabel}/>
-                {this.answer}
                 <GameInput 
                     guessCount={this.state.guessCount} 
                     submitGuess={(guess)=> this.checkAnswer(guess)}/>
-
                 <GameGuesses guesses={this.state.guesses}/>
                 
             </section>
